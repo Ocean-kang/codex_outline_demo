@@ -63,6 +63,6 @@ echo "[remote] force sync to origin/main (no divergent pull prompts)"
 ssh "$REMOTE" "set -e; cd "$REMOTE_REPO_DIR";   git fetch origin;   git reset --hard origin/main;   git clean -fd"
 
 echo "[remote] run deterministic pipeline smoke"
-ssh "$REMOTE" "set -e; cd "$REMOTE_REPO_DIR";   python3 -m src.pipeline --out /tmp/pipeline_check --seed 123 --n-samples 300 --epochs 60 --lr 0.15"
-
+# ssh "$REMOTE" "set -e; cd "$REMOTE_REPO_DIR";   python3 -m src.pipeline --out /tmp/pipeline_check --seed 123 --n-samples 300 --epochs 60 --lr 0.15"
+ssh "$REMOTE" "set -e; cd \"$REMOTE_REPO_DIR\"; python3 -m src.pipeline --out \"$REMOTE_REPO_DIR/pipeline_check\" --seed 123 --n-samples 300 --epochs 60 --lr 0.15"
 echo "[done] local+remote checks complete."
