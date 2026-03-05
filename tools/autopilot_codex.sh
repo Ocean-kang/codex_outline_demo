@@ -70,7 +70,7 @@ for i in $(seq 1 "$MAX_ITERS"); do
 " | tee "$CODEX_OUT"
 
   # ---- 2) 本地测试（你也可以在这里加格式化/静态检查）
-  pytest -q
+  ./.venv/bin/python -m pytest -q
 
   # ---- 3) 自动提交并 push
   git add -A
