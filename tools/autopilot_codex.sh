@@ -46,8 +46,8 @@ cd "$ROOT"
 # 基本保护：确保在 git repo 里
 git rev-parse --is-inside-work-tree >/dev/null
 
-mkdir -p .autolog
-echo ".autolog/" >> .gitignore 2>/dev/null || true
+mkdir -p log
+echo "log/" >> .gitignore 2>/dev/null || true
 
 # 远端输出不要放 repo 里（避免 git clean -fd 清掉）
 REMOTE_OUT_ROOT="/home/master/code/oymk/outputs/$(basename "$ROOT")/runs"
@@ -57,7 +57,7 @@ for i in $(seq 1 "$MAX_ITERS"); do
 
   # ---- 1) Codex 生成/修改代码（允许 workspace 写；禁用审批避免卡住；不建议 yolo） :contentReference[oaicite:3]{index=3}
   SPEC_TEXT="$(cat "$SPEC")"
-  CODEX_OUT=".autolog/codex_iter_${i}.txt"
+  CODEX_OUT="log/codex_iter_${i}.txt"
 
   codex exec \
     --sandbox workspace-write \
@@ -66,7 +66,7 @@ for i in $(seq 1 "$MAX_ITERS"); do
 额外约束：
 - 你只能改工作区代码（.py、tests 等），不要做 git push/ssh/scp（这些由外层脚本做）。
 - 修改后请确保：pytest -q 通过。
-- 如果存在 .autolog/last_run/ 里的 run.log 或 metrics.json，请阅读并据此改进。
+- 如果存在 log/last_run/ 里的 run.log 或 metrics.json，请阅读并据此改进。
 " | tee "$CODEX_OUT"
 
   # ---- 2) 本地测试（你也可以在这里加格式化/静态检查）
