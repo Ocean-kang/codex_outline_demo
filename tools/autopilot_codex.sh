@@ -61,7 +61,6 @@ for i in $(seq 1 "$MAX_ITERS"); do
 
   codex exec \
     --sandbox workspace-write \
-    --ask-for-approval never \
     "$SPEC_TEXT
 
 额外约束：
