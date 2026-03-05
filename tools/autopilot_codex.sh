@@ -50,7 +50,7 @@ mkdir -p .autolog
 echo ".autolog/" >> .gitignore 2>/dev/null || true
 
 # 远端输出不要放 repo 里（避免 git clean -fd 清掉）
-REMOTE_OUT_ROOT="/home/master/outputs/$(basename "$ROOT")/runs"
+REMOTE_OUT_ROOT="/home/master/code/oymk/outputs/$(basename "$ROOT")/runs"
 
 for i in $(seq 1 "$MAX_ITERS"); do
   echo "================ ITER $i/$MAX_ITERS ================"
